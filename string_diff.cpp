@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+//#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 int c[1505][1505];
 int l,s;
@@ -26,16 +27,20 @@ int main()
 		  {
 		  	  for(int j=0;j<l;++j)
 		  	  {
-		  	  	if(a[i]==b[j])
-		  	  	 c[i+1][j+1] = c[i][j] ;
-		  	  	 else
+		  	  	if(a[i]==b[j]){
+                   // cout<<i<<" "<<j<<" "<<c[i][j]<<"\n ";
+		  	  	 c[i+1][j+1] = c[i][j] ;}
+		  	  	 else{
+                 //cout<<"else: "<<i<<" "<<j<<" "<<c[i][j]<<"\n ";
 		  	  	 c[i+1][j+1] = c[i][j] +1;
+		  	  	 }
 			  }
 		  }
 		  int low = 0,high = l,mid;
             while(low < high)
 			{
-                mid = (low + high + 1) >> 1;
+                //mid = (low + high + 1) >> 1;
+                mid = (low+high+1)/2;
                 if(solve(mid)) low = mid;
                 else high = mid - 1;
             }
