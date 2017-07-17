@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <queue>
 using namespace std;
 
 class bst
@@ -79,6 +80,20 @@ class bst
 		postOrderPrivate(ptr->right);
 		cout<<ptr->key<<" ";
 	}
+
+	//Function to print the keys in level Order
+	void levelOrderPrivate(node* ptr) {
+		if(ptr == 0) return;
+		queue<node*> Q;
+		Q.push(ptr);
+		while(!Q.empty()) {
+			node* current = Q.front();
+			cout<<current->key<<" ";
+			if(current->left!=0) Q.push(current->left);
+			if(current->right!=0) Q.push(current->right);
+			Q.pop();
+		}
+	}
 public:
 	bst():root(0){}
 	void addLeaf(int key) {
@@ -129,6 +144,12 @@ public:
 			cout<<"Error!! empty tree\n";
 	}
 
+	void levelOrder() {
+		if(root==0)
+			cout<<"Can't print from an empty tree\n";
+		else
+			levelOrderPrivate(root);
+	}
 
 };
 
@@ -152,6 +173,8 @@ int main() {
 	myTree.preOrder();
 	cout<<"\nPostOrder traversal\n";
 	myTree.postOrder();
+	cout<<"\nLevelOrder traversal\n";
+	myTree.levelOrder();
 
 	cout<<"\nMin value "<<myTree.findMin()<<endl;
 	cout<<"Max value "<<myTree.findMax()<<endl;
