@@ -63,6 +63,22 @@ class bst
 		}
 		return max(findHeightPrivate(ptr->left),findHeightPrivate(ptr->right)) +1;
 	}
+
+	//Function to print the keys in preorder
+	void preOrderPrivate(node* ptr) {
+		if(ptr == 0) return;
+		cout<<ptr->key<<" ";
+		preOrderPrivate(ptr->left);
+		preOrderPrivate(ptr->right);
+	}
+
+	//Function to print the keys in postorder
+	void postOrderPrivate(node* ptr) {
+		if(ptr == 0) return;
+		postOrderPrivate(ptr->left);
+		postOrderPrivate(ptr->right);
+		cout<<ptr->key<<" ";
+	}
 public:
 	bst():root(0){}
 	void addLeaf(int key) {
@@ -99,6 +115,21 @@ public:
 		return findHeightPrivate(root);
 	}
 
+	void preOrder() {
+		if(root!=0)
+			preOrderPrivate(root);
+		else
+			cout<<"Error!! empty tree\n";
+	}
+
+	void postOrder() {
+		if(root!=0)
+			postOrderPrivate(root);
+		else
+			cout<<"Error!! empty tree\n";
+	}
+
+
 };
 
 int main() {
@@ -109,13 +140,18 @@ int main() {
 	cout<<"Print the tree in order \nbefore adding numbers\n";
 
 	myTree.printInOrder();
-
+    myTree.preOrder();
 	cout<<"Print the tree in order \nafter adding numbers\n";
 
 	for(int i = 0; i<16; i++) {
 		myTree.addLeaf(treekeys[i]);
 	}
+	cout<<"Inorder traversal\n";
 	myTree.printInOrder();
+	cout<<"\nPreorder traversal\n";
+	myTree.preOrder();
+	cout<<"\nPostOrder traversal\n";
+	myTree.postOrder();
 
 	cout<<"\nMin value "<<myTree.findMin()<<endl;
 	cout<<"Max value "<<myTree.findMax()<<endl;
