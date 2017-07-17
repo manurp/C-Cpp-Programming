@@ -56,6 +56,13 @@ class bst
 			cout<<"The tree is empty\n";
 		}
 	}
+
+	int findHeightPrivate(node* ptr) {
+		if(ptr ==0) {
+			return -1;
+		}
+		return max(findHeightPrivate(ptr->left),findHeightPrivate(ptr->right)) +1;
+	}
 public:
 	bst():root(0){}
 	void addLeaf(int key) {
@@ -63,6 +70,33 @@ public:
 	}
 	void printInOrder() {
 		printInOrderPrivate(root);
+	}
+	int findMin() {
+		if(root == 0) {
+			cout<<"Error!! empty tree\n";
+			return -1;
+		}
+		node* current = root;
+		while(current->left != 0) {
+			current = current->left;
+		}
+		return current->key;
+	}
+
+	int findMax() {
+		if(root == 0) {
+			cout<<"Error!! empty tree\n";
+			return -1;
+		}
+		node* current = root;
+		while(current->right != 0) {
+			current = current->right;
+		}
+		return current->key;
+	}
+
+	int findHeight() {
+		return findHeightPrivate(root);
 	}
 
 };
@@ -82,6 +116,11 @@ int main() {
 		myTree.addLeaf(treekeys[i]);
 	}
 	myTree.printInOrder();
+
+	cout<<"\nMin value "<<myTree.findMin()<<endl;
+	cout<<"Max value "<<myTree.findMax()<<endl;
+
+	cout<<"Height of the tree is "<<myTree.findHeight()<<endl;
 
 	return 0;
 }

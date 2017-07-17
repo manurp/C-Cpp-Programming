@@ -45,6 +45,49 @@ bool Search(BstNode* root,int data) {
 		return Search(root->right,data);
 	}
 }
+
+//Iterative solution
+/*int findMin(BstNode* root) {
+    if(root == 0) {
+        cout<<"Error!! Empty tree\n";
+        return -1;
+    }
+    while(root->left != 0) {
+        root = root->left;
+    }
+    return root->data;
+}*/
+
+//Recursive solution
+int findMin(BstNode* root) {
+    if(root == 0) {
+        cout<<"Error!! Empty tree\n";
+        return -1;
+    }
+    else if(root->left == 0){
+        return root->data;
+    }
+    return findMin(root->left);
+}
+
+int findMax(BstNode* root) {
+    if(root == 0) {
+        cout<<"Error!! Empty tree\n";
+        return -1;
+    }
+    while(root->right != 0) {
+        root = root->right;
+    }
+    return root->data;
+}
+
+int findHeight(BstNode* root) {
+    if (root == 0) {
+        return -1;
+    }
+    return max(findHeight(root->left),findHeight(root->right))+1;
+}
+
 int main() {
 	BstNode* root = NULL;  // Creating an empty tree
 	/*Code to test the logic*/
@@ -65,4 +108,9 @@ int main() {
 	//If number is found, print "FOUND"
 	if(Search(root,number) == true) cout<<"Found\n";
 	else cout<<"Not Found\n";
+
+	cout<<"Min value= "<<findMin(root)<<endl;
+	cout<<"Max value= "<<findMax(root)<<endl;
+
+	cout<<"Height of the tree is "<<findHeight(root)<<endl;
 }
