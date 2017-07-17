@@ -94,6 +94,21 @@ class bst
 			Q.pop();
 		}
 	}
+
+	bool SearchPrivate(node* ptr,int data) {
+		if(ptr == NULL) {
+			return false;
+		}
+		else if(ptr->key == data) {
+			return true;
+		}
+		else if(data < ptr->key) {
+			return SearchPrivate(ptr->left,data);
+		}
+		else {
+			return SearchPrivate(ptr->right,data);
+		}
+	}
 public:
 	bst():root(0){}
 	void addLeaf(int key) {
@@ -151,6 +166,10 @@ public:
 			levelOrderPrivate(root);
 	}
 
+	bool Search(int data) {
+		return SearchPrivate(root,data);
+	}
+
 };
 
 int main() {
@@ -167,6 +186,15 @@ int main() {
 	for(int i = 0; i<16; i++) {
 		myTree.addLeaf(treekeys[i]);
 	}
+
+	cout<<"Enter the key that should be Searched in the tree: ";
+	int number;
+	cin>>number;
+	if(myTree.Search(number))
+		cout<<"Found\n";
+	else
+		cout<<"Not Found\n";
+    cout<<endl;
 	cout<<"Inorder traversal\n";
 	myTree.printInOrder();
 	cout<<"\nPreorder traversal\n";
