@@ -109,6 +109,52 @@ class bst
 			return SearchPrivate(ptr->right,data);
 		}
 	}
+
+
+	//Returns the address of the node with minimum value
+	node* findMin(node* ptr) {
+		while(ptr->left != NULL) ptr = ptr->left;
+		return ptr;
+	}
+
+	//Returns the address of the node with maximum value
+	node* findMax(node* ptr) {
+		while(ptr->right != NULL) ptr = ptr->right;
+		return ptr;
+	}
+
+		// Function to search a delete a value from tree.
+	node* Delete(node *ptr, int key) {
+		if(ptr == NULL) return ptr;
+		else if(key < ptr->key) ptr->left = Delete(ptr->left,key);
+		else if (key > ptr->key) ptr->right = Delete(ptr->right,key);
+		// Found, Get ready to be deleted
+		else {
+			// Case 1:  No child
+			if(ptr->left == NULL && ptr->right == NULL) {
+				delete ptr;
+				ptr = NULL;
+			}
+			//Case 2: One child
+			else if(ptr->left == NULL) {
+				node *temp = ptr;
+				ptr = ptr->right;
+				delete temp;
+			}
+			else if(ptr->right == NULL) {
+				node *temp = ptr;
+				ptr = ptr->left;
+				delete temp;
+			}
+			// case 3: 2 children
+			else {
+				node *temp = findMin(ptr->right);
+				ptr->key = temp->key;
+				ptr->right = Delete(ptr->right,temp->key);
+			}
+		return ptr;
+		}
+	}
 public:
 	bst():root(0){}
 	void addLeaf(int key) {
@@ -117,7 +163,7 @@ public:
 	void printInOrder() {
 		printInOrderPrivate(root);
 	}
-	int findMin() {
+	int findMinVal() {
 		if(root == 0) {
 			cout<<"Error!! empty tree\n";
 			return -1;
@@ -129,7 +175,7 @@ public:
 		return current->key;
 	}
 
-	int findMax() {
+	int findMaxVal() {
 		if(root == 0) {
 			cout<<"Error!! empty tree\n";
 			return -1;
@@ -140,6 +186,11 @@ public:
 		}
 		return current->key;
 	}
+
+	void DeleteNode(int data) {
+		Delete(root,data);
+	}
+
 
 	int findHeight() {
 		return findHeightPrivate(root);
@@ -204,8 +255,13 @@ int main() {
 	cout<<"\nLevelOrder traversal\n";
 	myTree.levelOrder();
 
-	cout<<"\nMin value "<<myTree.findMin()<<endl;
-	cout<<"Max value "<<myTree.findMax()<<endl;
+	cout<<"\nMin value "<<myTree.findMinVal()<<endl;
+	cout<<"Max value "<<myTree.findMaxVal()<<endl;
+
+	myTree.DeleteNode(50);
+	cout<<endl;
+	myTree.printInOrder();
+	cout<<endl;
 
 	cout<<"Height of the tree is "<<myTree.findHeight()<<endl;
 
