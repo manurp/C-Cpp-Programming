@@ -110,6 +110,17 @@ class bst
 		}
 	}
 
+	//Function that returns the address of the node with the requires data
+	node* Find(node* ptr,int data) {
+		if(ptr == NULL)
+			return 0;
+		else if(ptr->key == data)
+			return ptr;
+		else if(data < ptr->key)
+			return Find(ptr->left,data);
+		else
+			return Find(ptr->right,data);
+	}
 
 	//Returns the address of the node with minimum value
 	node* findMin(node* ptr) {
@@ -124,10 +135,10 @@ class bst
 	}
 
 		// Function to search a delete a value from tree.
-	node* Delete(node *ptr, int key) {
+	node* DeletePrivate(node *ptr, int key) {
 		if(ptr == NULL) return ptr;
-		else if(key < ptr->key) ptr->left = Delete(ptr->left,key);
-		else if (key > ptr->key) ptr->right = Delete(ptr->right,key);
+		else if(key < ptr->key) ptr->left = DeletePrivate(ptr->left,key);
+		else if (key > ptr->key) ptr->right = DeletePrivate(ptr->right,key);
 		// Found, Get ready to be deleted
 		else {
 			// Case 1:  No child
@@ -150,10 +161,32 @@ class bst
 			else {
 				node *temp = findMin(ptr->right);
 				ptr->key = temp->key;
-				ptr->right = Delete(ptr->right,temp->key);
+				ptr->right = DeletePrivate(ptr->right,temp->key);
 			}
 		return ptr;
 		}
+	}
+
+	node* getSuccessorPrivate(node* ptr, int data) {
+		node* current = Find(ptr,data);
+		if(current==0) return 0;
+
+		if(current->right != 0) { //Case 1 :node has a right subtree
+			return findMin(current->right);
+		}
+		else { //case 2 : Node doesn't has a right sub-tree
+			node* successor = NULL;
+			node* ancestor = root;
+			while(current != ancestor) {
+				if(current->key < ancestor->key) {
+					successor = ancestor;
+					ancestor = ancestor->left;
+				}
+				else ancestor = ancestor->right;
+			}
+			return successor;
+		}
+
 	}
 public:
 	bst():root(0){}
@@ -187,8 +220,8 @@ public:
 		return current->key;
 	}
 
-	void DeleteNode(int data) {
-		Delete(root,data);
+	void Delete(int data) {
+		DeletePrivate(root,data);
 	}
 
 
@@ -219,6 +252,21 @@ public:
 
 	bool Search(int data) {
 		return SearchPrivate(root,data);
+	}
+
+	int getSuccessor(int data) {
+		if ( Find(root,data) == 0) {
+			cout<<"No "<<data<<" in the tree\n";
+			return -1;
+		}
+		node* addr = getSuccessorPrivate(root,data);
+
+		if(addr==0) {
+			cout<<"There is no Successor\n";
+			return -1;
+		}
+		else
+			return addr->key;
 	}
 
 };
@@ -258,12 +306,16 @@ int main() {
 	cout<<"\nMin value "<<myTree.findMinVal()<<endl;
 	cout<<"Max value "<<myTree.findMaxVal()<<endl;
 
-	myTree.DeleteNode(50);
+	myTree.Delete(50);
 	cout<<endl;
 	myTree.printInOrder();
 	cout<<endl;
 
-	cout<<"Height of the tree is "<<myTree.findHeight()<<endl;
+	cout<<"Height of the tree is "<<myTree.findHeight()<<endl<<endl;
+
+	cout<<myTree.getSuccessor(10)<<endl;
+	cout<<myTree.getSuccessor(100)<<endl;
+	cout<<myTree.getSuccessor(15)<<endl;
 
 	return 0;
 }
