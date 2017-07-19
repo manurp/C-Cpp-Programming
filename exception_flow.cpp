@@ -21,7 +21,7 @@ void g() {
 	}
 	catch(int) {cout<<"int\n";}
 	catch(double) {cout<<"double\n";}
-	catch(...) {throw;}
+	catch(...) {throw;} //Withot this line the default is also throwing that exception 
 }
 
 void f() {
