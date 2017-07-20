@@ -2,11 +2,11 @@
 #include <cstring>
 using namespace std;
 
-template <class T> class Stack;
+template <class T> class Stack;             //Forward declaration
 
 void reverseString(Stack<char>&,char*);
 
-template <class T>
+template <class T>							//Declaration
 class Stack {
 	T data_[100];
 	int top_;
