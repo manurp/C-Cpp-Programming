@@ -14,7 +14,7 @@ void insertion_sort(int* A, int n) {
 }
 
 int main() {
-    int a[] = {1,12,4,5,8,6,7,10,0,2};
+    int a[] = {0,12,4,5,8,6,7,10,2,1};
     int i;
     insertion_sort(a,10);
     for(i = 0; i<10 ; i++) printf("%d ",a[i]);
