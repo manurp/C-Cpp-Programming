@@ -13,5 +13,24 @@ int main() {
         cout<< it->first<<" -> "<<it->second<<endl;
     }
 
+    mp.clear();
+    if(mp.empty()) {
+        cout<<"Map is empty\n";
+    }
+    mp[1] = "manoj";
+    mp[2] = "rohit";
+    mp[3] = "lekhan";
+
+    std::map<int, string>::iterator it = mp.find(2);
+    cout<<it->second<<endl;
+    mp.erase(it->first);
+    it = mp.find(2);
+    cout<<it->first <<endl;
+
+    cout<<"Size of the map is "<<mp.size()<<endl;
+     for(map<int, string>::iterator it = mp.begin(); it != mp.end(); it++) {
+        cout<< it->first<<" -> "<<it->second<<endl;
+    }
     return 0;
 }
+
