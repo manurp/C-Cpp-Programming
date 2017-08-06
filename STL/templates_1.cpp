@@ -30,10 +30,10 @@ public:
 };
 
 template <typename T>
-myVector<T> operator*(const myVector& first, const myVector& second) {
+myVector<T> operator*(const myVector<T>& first, const myVector<T>& second) {
     myVector<T> newVector;
     for(int i = 0; i < first.getSize(); i++) {
-        newVector.push(first.get()*second.get());
+        newVector.push(first.get(i)*second.get(i));
     }
     return newVector;
 }
@@ -46,7 +46,7 @@ int main() {
     V.push(2);V.push(5);V.push(7);V.push(12);V.push(36);
     V.print();
 
-    cout << "Squared vector V: "<<endl;
+    cout << "\nSquared vector V: "<<endl;
     V = square(V);
     V.print();
 
