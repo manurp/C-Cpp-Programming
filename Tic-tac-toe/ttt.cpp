@@ -1,4 +1,5 @@
 #include <iostream>
+#include<cstdlib>
 #include<conio.h>
 using namespace std;
 
@@ -6,6 +7,12 @@ void draw(int* p,int low) {
     if (low>6) {
         return;
     }
+    // Gives space before any picture
+    if (low==0) {
+        cout << "----Tic Tac Toe---\n\n";
+        cout << "\n\n\n\n\n\n\n";
+    }
+
     cout << "   ";
     if (p[low] == 0)
         cout << "0  ";
@@ -33,6 +40,11 @@ void draw(int* p,int low) {
     cout << "\n   ---- ---- ----";
     }
     cout << endl;
+    // Gives space before any picture
+    if (low==6) {
+        cout << "\n\n\n\n\n\n\n";
+    }
+
     draw(p, low+3);
 
 }
@@ -108,7 +120,7 @@ bool askP1(int* arr) {
             cout << "Wrong Choice!! The place is already occupied or its out of range\n\n";
             return false;
         }
-
+        system("cls");
         draw(arr,0);
         return true;
 }
@@ -125,17 +137,21 @@ bool askP2(int* arr) {
             cout << "Wrong Choice!! The place is already occupied or its out of range\n\n";
             return false;
         }
-
+        system("cls");
         draw(arr,0);
         return true;
 }
 
 int main() {
+
+
+    while(1) {
     int arr[9] = {-10,-10,-10,-10,-10,-10,-10,-10,-10};
     int count = 0;
     bool flag;
 
-    cout << "----Tic Tac Toe---\n\n";
+    system("cls");
+   // cout << "----Tic Tac Toe---\n\n";
     draw(arr,0);
     while(count < 9) {
 
@@ -168,6 +184,13 @@ int main() {
 
     if(count == 9)
         cout<<"-----Match Drawn-----";
-    getch();
+    cout << "\nPress q to stop playing and any other character to continue playing\n";
+    char c;
+    cin >> c;
+    if(c=='q' || c=='Q')
+        break;
+
+    }
+    //getch();
     return 0;
 }
