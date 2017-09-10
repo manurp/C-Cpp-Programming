@@ -1,4 +1,5 @@
 #include <iostream>
+#include<conio.h>
 using namespace std;
 
 void draw(int* p,int low) {
@@ -38,7 +39,6 @@ void draw(int* p,int low) {
 
 bool winner(int* p, int n=0) {
 
-            bool flag = false;
             //Row
             if(n%3==0) {
                 if(p[n]+p[n+1]+p[n+2]==0) {
@@ -81,50 +81,84 @@ bool winner(int* p, int n=0) {
                     cout << "----Player 1 Wins----\n";
                     return true;
                 }
-                if(p[n]+p[n+4]+p[n+8]==3) {
+                if(p[n]+p[n+2]+p[n+4]==3) {
                     cout << "----Player 2 Wins----\n";
                     return true;
                 }
             }
 
-            if(n==0) {
-                flag = winner(p, 1);
-                if(flag)
-                    return true;
-                flag = winner(p, 2);
-                if(flag)
-                    return true;
-                flag = winner(p, 3);
-                if(flag)
-                    return true;
-                flag = winner(p, 6);
-                if(flag)
-                    return true;
-            }
-            return flag;
+
+        if(n==0) {
+            if (winner(p,1)||winner(p, 2)||winner(p, 3)||winner(p, 6))
+                return true;
+        }
+        return false;
+
+}
+
+bool askP1(int* arr) {
+    int ind;
+    cout << "Player 1 : Where you want to place  'O' ? ";
+        cin >> ind ;
+        ind--;
+        if(arr[ind]==-10) {
+        arr[ind] = 0;
+        }
+        else{
+            cout << "Wrong Choice!! The place is already occupied or its out of range\n\n";
+            return false;
+        }
+
+        draw(arr,0);
+        return true;
+}
+
+bool askP2(int* arr) {
+    int ind;
+    cout << "Player 2 : Where you want to place  'X' ? ";
+        cin >> ind ;
+        ind--;
+        if(arr[ind]==-10) {
+        arr[ind] = 1;
+        }
+        else{
+            cout << "Wrong Choice!! The place is already occupied or its out of range\n\n";
+            return false;
+        }
+
+        draw(arr,0);
+        return true;
 }
 
 int main() {
     int arr[9] = {-10,-10,-10,-10,-10,-10,-10,-10,-10};
-    int count = 0, ind;
+    int count = 0;
     bool flag;
 
     cout << "----Tic Tac Toe---\n\n";
+    draw(arr,0);
     while(count < 9) {
-        draw(arr,0);
-        cout << "Player 1 : Where you want to place  'O' ? ";
-        cin >> ind ;
-        arr[ind] = 0;
-        draw(arr,0);
+
+        for(int i=0;i<3;i++) {
+            if(askP1(arr))
+                break;
+            if(i==2)
+                cout<<"Your Chance is over\n\n";
+        }
 
         flag = winner(arr);
 
          if(flag)
              break;
-        cout << "Player 2 : Where you want to place  'X' ? ";
-        cin >> ind ;
-        arr[ind] = 1;
-
+        count++;
+        if(count==9)
+            break;
+        for(int i=0;i<3;i++) {
+            if(askP2(arr))
+                break;
+            if(i==2)
+                cout<<"Your Chance is over\n\n";
+        }
         flag = winner(arr);
 
          if(flag)
@@ -134,6 +168,6 @@ int main() {
 
     if(count == 9)
         cout<<"-----Match Drawn-----";
-
+    getch();
     return 0;
 }
