@@ -1,12 +1,14 @@
 #include <iostream>
-#include<cstdlib>
-#include<conio.h>
+#include <cstdlib>
+#include <conio.h>
 using namespace std;
 
+// Function to draw Tic tac toe picture
 void draw(int* p,int low) {
     if (low>6) {
         return;
     }
+
     // Gives space before any picture
     if (low==0) {
         cout << "----Tic Tac Toe---\n\n";
@@ -14,6 +16,7 @@ void draw(int* p,int low) {
     }
 
     cout << "   ";
+
     if (p[low] == 0)
         cout << "0  ";
     else if(p[low] == 1)
@@ -21,7 +24,7 @@ void draw(int* p,int low) {
     else
         cout<<"   ";
 
-    cout << "|  ";
+    cout << " | ";
     if (p[low+1] == 0)
         cout << "0  ";
     else if(p[low+1] == 1)
@@ -36,11 +39,13 @@ void draw(int* p,int low) {
         cout<<"X  ";
     else
         cout<<"   ";
+
     if(low<6){
     cout << "\n   ---- ---- ----";
     }
     cout << endl;
-    // Gives space before any picture
+
+    // Gives space after the picture
     if (low==6) {
         cout << "\n\n\n\n\n\n\n";
     }
@@ -49,6 +54,7 @@ void draw(int* p,int low) {
 
 }
 
+// Function that decides the winner if any
 bool winner(int* p, int n=0) {
 
             //Row
@@ -108,6 +114,7 @@ bool winner(int* p, int n=0) {
 
 }
 
+// Getting input from Player 1 and drawing
 bool askP1(int* arr) {
     int ind;
     cout << "Player 1 : Where you want to place  'O' ? ";
@@ -125,6 +132,7 @@ bool askP1(int* arr) {
         return true;
 }
 
+// Getting input from Player 2 and drawing
 bool askP2(int* arr) {
     int ind;
     cout << "Player 2 : Where you want to place  'X' ? ";
@@ -142,8 +150,8 @@ bool askP2(int* arr) {
         return true;
 }
 
+// Main function
 int main() {
-
 
     while(1) {
     int arr[9] = {-10,-10,-10,-10,-10,-10,-10,-10,-10};
@@ -184,7 +192,7 @@ int main() {
 
     if(count == 9)
         cout<<"-----Match Drawn-----";
-    cout << "\nPress q to stop playing and any other character to continue playing\n";
+    cout << "\nPress 'q' to stop playing and any other character to continue playing\n";
     char c;
     cin >> c;
     if(c=='q' || c=='Q')
