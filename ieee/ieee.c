@@ -7,7 +7,7 @@ struct ip_adrr {
     char s[33];
 };
 
-struct ip_adrr ip[10];
+struct ip_adrr ip[100];
 
 void swap_ip(int a,int b){
     char temp[33];
@@ -42,6 +42,8 @@ int isgreat(char str1[], char str2[]) {
     for(i=0;i<8;i++){
         if(get_num(str1,i)>get_num(str2,i))
             return 1;
+        else if(get_num(str1,i)<get_num(str2,i))
+            return 0;
     }
     return 0;
 }
@@ -59,19 +61,19 @@ void sort_ip(int q) {
 
 int main() {
 
-    char str[33] = "225.124.16";
+    char str[33];
     int x;
-    //x = get_num(str,0);
-    //printf("x");
+    scanf("%d",&x);
     int i;
-    for(i=0;i<7;i++){
-        gets(str);
+    for(i=0;i<x;i++){
+        scanf("%s",str);
         strcpy(ip[i].s,str);
     }
-    sort_ip(2);
-    for (i = 0; i < 7; ++i)
+    sort_ip(x);
+    for (i = 0; i < x; ++i)
     {
-        puts(ip[i].s);
+        printf("%s\n",ip[i].s);
     }
     return 0;
 }
+
